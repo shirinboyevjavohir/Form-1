@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+.send_btn {
+  margin: 100px;
+}
+
 .container {
   display: flex;
 }
@@ -28,13 +32,6 @@
   margin-bottom: 16px;
 }
 
-.name {
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 20px;
-  color: rgba(52, 64, 84, 1);
-}
-
 .form_line {
   height: 1px;
   width: 100%;
@@ -48,13 +45,6 @@
   line-height: 20px;
   color: rgba(16, 24, 40, 1);
   margin-bottom: 12px;
-}
-
-.suffix {
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  color: rgba(102, 112, 133, 1);
 }
 
 .color_container {
@@ -75,6 +65,19 @@
   cursor: pointer;
 }
 
+.active {
+  border: 2px solid rgba(0, 99, 255, 1);
+  background-color: rgba(243, 247, 255, 1);
+}
+
+.active .color_item_title {
+  color: rgba(0, 99, 255, 1);
+}
+
+.active .radio_container {
+  background-color: rgba(0, 99, 255, 1);
+}
+
 .color_item_title {
   font-weight: 500;
   font-size: 14px;
@@ -87,6 +90,14 @@
   height: 16px;
   border-radius: 50%;
   border: 1px solid rgba(224, 228, 233, 1);
+  display: grid;
+  place-content: center;
+}
+
+.check_icon {
+  color: #fff;
+  width: 8px;
+  height: 8px;
 }
 
 .ant-modal-container {
@@ -130,4 +141,6 @@
 :where(.css-dev-only-do-not-override-1iph5z3).ant-input-outlined {
   border-color: rgba(208, 213, 221, 1);
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  height: 40px;
+  border-radius: 8px !important;
 }
