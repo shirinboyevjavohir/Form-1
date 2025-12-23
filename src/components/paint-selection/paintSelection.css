@@ -1,0 +1,52 @@
+.color_container {
+  border: 1px solid rgba(234, 236, 240, 1);
+  border-radius: 16px;
+  padding: 12px;
+}
+
+.color_item {
+  border-radius: 12px;
+  border: 1px solid rgba(224, 228, 233, 1);
+  height: 40px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  cursor: pointer;
+}
+
+.active {
+  border: 2px solid rgba(0, 99, 255, 1);
+  background-color: rgba(243, 247, 255, 1);
+}
+
+.active .color_item_title {
+  color: rgba(0, 99, 255, 1);
+}
+
+.active .radio_container {
+  background-color: rgba(0, 99, 255, 1);
+}
+
+.color_item_title {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: rgba(52, 64, 84, 1);
+}
+
+.radio_container {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid rgba(224, 228, 233, 1);
+  display: grid;
+  place-content: center;
+}
+
+.check_icon {
+  color: #fff;
+  width: 8px;
+  height: 8px;
+}

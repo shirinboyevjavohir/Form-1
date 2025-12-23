@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+}
+
+.step {
+  width: 290px;
+  border-right: 1px solid rgba(234, 236, 240, 1);
+  padding: 16px;
+  background-color: #f9fafb;
+}
+
+.form {
+  width: 857px;
+  padding: 16px;
+}
+
+.form_title {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba(16, 24, 40, 1);
+  margin-bottom: 16px;
+}
+
+.form_line {
+  height: 1px;
+  width: 100%;
+  background-color: rgba(234, 236, 240, 1);
+  margin: 20px 0;
+}
+
+.standard_size {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba(16, 24, 40, 1);
+  margin-bottom: 12px;
+}
