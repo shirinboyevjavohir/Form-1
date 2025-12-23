@@ -1,0 +1,43 @@
+.form_title,
+.standard_size {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba(16, 24, 40, 1);
+}
+
+.form_title {
+  margin-bottom: 16px;
+  transition: transform 0.6s ease, opacity 0.6s ease;
+}
+
+.standard_size {
+  margin-bottom: 12px;
+}
+
+.open {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.close {
+  transform: translateY(-40px);
+  opacity: 0;
+}
+
+.standard_size_container {
+  transition: transform 0.6s ease, opacity 0.6s ease;
+  transition-delay: 1.2s;
+}
+
+.paint_selection {
+  transition: transform 0.6s ease, opacity 0.6s ease;
+  transition-delay: 1.8s;
+}
+
+.form_line {
+  height: 1px;
+  width: 100%;
+  background-color: rgba(234, 236, 240, 1);
+  margin: 20px 0;
+}

@@ -1,41 +1,68 @@
 import { useForm } from "antd/es/form/Form";
-import { Form, Modal, Row } from "antd";
-import { useState, useEffect } from "react";
+import { Form, Modal } from "antd";
+import { useState } from "react";
 
-import { InputNumberComponent } from "../input-number/InputNumber";
-import { TextInput } from "../text-input/TextInput";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
 import { setMainModal } from "../../slices/slices";
-import { PaintSelection } from "../paint-selection/PaintSelection";
+import { setActiveStep } from "../../slices/slices";
 import "./basicInformation.css";
 import { Steps } from "../steps/Steps";
+import { FormStepOne } from "../form-steps/step-1/FormStepOne";
+import { FormStepSecond } from "../form-steps/step-2/FormStepSecond";
+import { FormStepThird } from "../form-steps/step-3/FormStepThird";
+import { FormStepFourth } from "../form-steps/step-4/FormStepFourth";
 
 export const BasicInformation = () => {
-  const [animateTitle, setAnimateTitle] = useState(false);
-
   const visible = useSelector((state: RootState) => state.mainModal.visible);
+  const activeStep = useSelector(
+    (state: RootState) => state.mainModal.activeStep
+  );
   const dispatch = useDispatch();
   const [formInstance] = useForm();
+  // const [activeStep, setActiveStep] = useState(1);
+  const [okText, setOkText] = useState("Keyingi");
 
-  useEffect(() => {
-    if (visible) {
-      setAnimateTitle(false);
-      requestAnimationFrame(() => {
-        setAnimateTitle(true);
-      });
-    } else {
-      setAnimateTitle(false);
-    }
-  }, [visible]);
+  const components = [
+    {
+      id: 1,
+      component: <FormStepOne />,
+    },
+    {
+      id: 2,
+      component: <FormStepSecond />,
+    },
+    {
+      id: 3,
+      component: <FormStepThird />,
+    },
+    {
+      id: 4,
+      component: <FormStepFourth />,
+    },
+  ];
 
   const onOk = () => {
-    formInstance.submit();
+    if (components.length !== activeStep) {
+      dispatch(setActiveStep(activeStep + 1));
+      setOkText(components.length - 1 === activeStep ? "Saqlash" : "Keyingi");
+    } else {
+      dispatch(setActiveStep(components.length));
+    }
+
+    // formInstance.submit();
   };
 
   const onFinish = (fields: unknown) => {
     console.log(fields);
     // formInstance.resetFields();
+  };
+
+  const onCancel = () => {
+    dispatch(setMainModal(false));
+    formInstance.resetFields();
+    dispatch(setActiveStep(1));
+    setOkText("Keyingi");
   };
 
   return (
@@ -44,14 +71,11 @@ export const BasicInformation = () => {
       className="modal"
       title={<p>Eshik asosini yaratish</p>}
       open={visible}
-      onCancel={() => {
-        dispatch(setMainModal(false));
-        formInstance.resetFields();
-      }}
+      onCancel={onCancel}
       width={1147}
       onOk={onOk}
       cancelText="Yopish"
-      okText="Keyingi"
+      okText={okText}
     >
       <div className="container">
         <div className="step">
@@ -65,46 +89,7 @@ export const BasicInformation = () => {
             onFinish={onFinish}
             initialValues={{ color: "painted" }}
           >
-            <h1 className={`form_title ${animateTitle ? "open" : "close"}`}>
-              Asosiy ma’lumotlar
-            </h1>
-            <TextInput
-              title="Nomi"
-              required={false}
-              name="name"
-              placeholder="Nomni kiriting"
-              classNameTextInput={`${animateTitle ? "open" : "close"}`}
-            />
-            <div
-              className={`standard_size_container ${
-                animateTitle ? "open" : "close"
-              }`}
-            >
-              <div className="form_line"></div>
-
-              <h2 className="standard_size">Standart o’lcham</h2>
-
-              <Row gutter={12}>
-                <InputNumberComponent
-                  title="Mahsulot bo’yi"
-                  name="height"
-                  suffix="mm"
-                  type="number"
-                />
-                <InputNumberComponent
-                  title="Mahsulot eni"
-                  name="width"
-                  suffix="mm"
-                  type="number"
-                />
-              </Row>
-            </div>
-            <div
-              className={`paint_selection ${animateTitle ? "open" : "close"}`}
-            >
-              <div className="form_line"></div>
-              <PaintSelection />
-            </div>
+            {components.find((item) => item.id === activeStep)?.component}
           </Form>
         </div>
       </div>

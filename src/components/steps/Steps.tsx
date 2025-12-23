@@ -28,6 +28,7 @@ export const Steps = () => {
       {data.map((item, index) => {
         return (
           <Step
+            key={index}
             title={item.title}
             description={item.description}
             index={index}
