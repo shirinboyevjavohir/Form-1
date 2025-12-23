@@ -9,6 +9,7 @@ import type { RootState } from "../../store/store";
 import { setMainModal } from "../../slices/slices";
 import { PaintSelection } from "../paint-selection/PaintSelection";
 import "./basicInformation.css";
+import { Steps } from "../steps/Steps";
 
 export const BasicInformation = () => {
   const [animateTitle, setAnimateTitle] = useState(false);
@@ -53,7 +54,9 @@ export const BasicInformation = () => {
       okText="Keyingi"
     >
       <div className="container">
-        <div className="step">Test</div>
+        <div className="step">
+          <Steps />
+        </div>
 
         <div className="form">
           <Form
