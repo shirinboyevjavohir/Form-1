@@ -1,5 +1,6 @@
 import { useForm } from "antd/es/form/Form";
 import { Form, Modal, Row } from "antd";
+import { useState, useEffect } from "react";
 
 import { InputNumberComponent } from "../input-number/InputNumber";
 import { TextInput } from "../text-input/TextInput";
@@ -10,9 +11,22 @@ import { PaintSelection } from "../paint-selection/PaintSelection";
 import "./basicInformation.css";
 
 export const BasicInformation = () => {
+  const [animateTitle, setAnimateTitle] = useState(false);
+
   const visible = useSelector((state: RootState) => state.mainModal.visible);
   const dispatch = useDispatch();
   const [formInstance] = useForm();
+
+  useEffect(() => {
+    if (visible) {
+      setAnimateTitle(false);
+      requestAnimationFrame(() => {
+        setAnimateTitle(true);
+      });
+    } else {
+      setAnimateTitle(false);
+    }
+  }, [visible]);
 
   const onOk = () => {
     formInstance.submit();
@@ -25,6 +39,7 @@ export const BasicInformation = () => {
 
   return (
     <Modal
+      forceRender
       className="modal"
       title={<p>Eshik asosini yaratish</p>}
       open={visible}
@@ -47,34 +62,46 @@ export const BasicInformation = () => {
             onFinish={onFinish}
             initialValues={{ color: "painted" }}
           >
-            <h1 className="form_title">Asosiy ma’lumotlar</h1>
+            <h1 className={`form_title ${animateTitle ? "open" : "close"}`}>
+              Asosiy ma’lumotlar
+            </h1>
             <TextInput
               title="Nomi"
               required={false}
               name="name"
               placeholder="Nomni kiriting"
+              classNameTextInput={`${animateTitle ? "open" : "close"}`}
             />
-            <div className="form_line"></div>
+            <div
+              className={`standard_size_container ${
+                animateTitle ? "open" : "close"
+              }`}
+            >
+              <div className="form_line"></div>
 
-            <h2 className="standard_size">Standart o’lcham</h2>
+              <h2 className="standard_size">Standart o’lcham</h2>
 
-            <Row gutter={12}>
-              <InputNumberComponent
-                title="Mahsulot bo’yi"
-                name="height"
-                suffix="mm"
-                type="number"
-              />
-              <InputNumberComponent
-                title="Mahsulot eni"
-                name="width"
-                suffix="mm"
-                type="number"
-              />
-            </Row>
-
-            <div className="form_line"></div>
-            <PaintSelection />
+              <Row gutter={12}>
+                <InputNumberComponent
+                  title="Mahsulot bo’yi"
+                  name="height"
+                  suffix="mm"
+                  type="number"
+                />
+                <InputNumberComponent
+                  title="Mahsulot eni"
+                  name="width"
+                  suffix="mm"
+                  type="number"
+                />
+              </Row>
+            </div>
+            <div
+              className={`paint_selection ${animateTitle ? "open" : "close"}`}
+            >
+              <div className="form_line"></div>
+              <PaintSelection />
+            </div>
           </Form>
         </div>
       </div>

@@ -6,9 +6,16 @@ type Props = {
   required: boolean;
   name: string;
   placeholder: string;
+  classNameTextInput: string;
 };
 
-export const TextInput = ({ title, required, name, placeholder }: Props) => {
+export const TextInput = ({
+  title,
+  required,
+  name,
+  placeholder,
+  classNameTextInput,
+}: Props) => {
   return (
     <Row>
       <Col span={24}>
@@ -17,6 +24,7 @@ export const TextInput = ({ title, required, name, placeholder }: Props) => {
           label={<p className="name">{title}</p>}
           required={required}
           rules={[{ required: true, message: "" }]}
+          className={`input ${classNameTextInput}`}
         >
           <Input placeholder={placeholder} />
         </Form.Item>
