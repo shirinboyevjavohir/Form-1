@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { Col, Form } from "antd";
 import { InputNumber } from "antd";
 import "./inputNumber.css";
@@ -10,6 +11,7 @@ type Props = {
   suffix: string;
   type: string;
   widthInput?: number;
+  isFocus?: boolean;
 };
 export const InputNumberComponent = ({
   title,
@@ -17,7 +19,13 @@ export const InputNumberComponent = ({
   suffix,
   type,
   widthInput,
+  isFocus,
 }: Props) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    if (isFocus) inputRef.current?.focus();
+  }, [isFocus]);
+
   return (
     <Col span={12}>
       <Item
@@ -33,6 +41,7 @@ export const InputNumberComponent = ({
         ]}
       >
         <InputNumber
+          ref={inputRef}
           controls={false}
           style={{ width: widthInput ? `${widthInput}px` : "100%" }}
           min={0}

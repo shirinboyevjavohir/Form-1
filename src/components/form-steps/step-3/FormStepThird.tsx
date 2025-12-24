@@ -1,8 +1,10 @@
+import { useRef, useEffect, useState } from "react";
 import { Select, Form } from "antd";
-import "./formStepThird.css";
-import { useEffect, useState } from "react";
-import type { RootState } from "../../../store/store";
+import type { RefSelectProps } from "antd/es/select";
+
 import { useSelector } from "react-redux";
+import type { RootState } from "../../../store/store";
+import "./formStepThird.css";
 
 const Item = Form.Item;
 
@@ -15,15 +17,20 @@ const options = [
 export const FormStepThird = () => {
   const [animateTitle, setAnimateTitle] = useState(false);
   const visible = useSelector((state: RootState) => state.mainModal.visible);
+  const selectRef = useRef<RefSelectProps>(null);
+
+  useEffect(() => {
+    selectRef.current?.focus();
+  }, []);
 
   useEffect(() => {
     if (visible) {
-      setAnimateTitle(false);
       requestAnimationFrame(() => {
+        setAnimateTitle(false);
         setAnimateTitle(true);
       });
     } else {
-      setAnimateTitle(false);
+      requestAnimationFrame(() => setAnimateTitle(false));
     }
   }, [visible]);
 
@@ -34,6 +41,7 @@ export const FormStepThird = () => {
       </h2>
       <Item name="consumption" rules={[{ required: true, message: "" }]}>
         <Select
+          ref={selectRef}
           className={`step_third_select ${animateTitle ? "open" : "close"}`}
           showSearch={{
             filterOption: (input, option) =>

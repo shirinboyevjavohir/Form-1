@@ -82,7 +82,9 @@ export const BasicInformation = () => {
       }
 
       formInstance.submit();
-    } catch {}
+    } catch {
+      // intentionally empty
+    }
   };
 
   const onFinish = () => {

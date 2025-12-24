@@ -10,12 +10,12 @@ export const FormStepFourth = () => {
 
   useEffect(() => {
     if (visible) {
-      setAnimateTitle(false);
       requestAnimationFrame(() => {
+        setAnimateTitle(false);
         setAnimateTitle(true);
       });
     } else {
-      setAnimateTitle(false);
+      requestAnimationFrame(() => setAnimateTitle(false));
     }
   }, [visible]);
 
@@ -31,6 +31,7 @@ export const FormStepFourth = () => {
           suffix="%"
           type="number"
           widthInput={212}
+          isFocus={true}
         />
       </div>
     </div>

@@ -13,12 +13,12 @@ export const FormStepOne = () => {
 
   useEffect(() => {
     if (visible) {
-      setAnimateTitle(false);
       requestAnimationFrame(() => {
+        setAnimateTitle(false);
         setAnimateTitle(true);
       });
     } else {
-      setAnimateTitle(false);
+      requestAnimationFrame(() => setAnimateTitle(false));
     }
   }, [visible]);
 

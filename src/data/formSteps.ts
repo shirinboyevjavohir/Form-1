@@ -1,4 +1,5 @@
-import type { FC } from "react";
+import React from "react";
+// import type { FC } from "react";
 
 import { FormStepOne } from "../components/form-steps/step-1/FormStepOne";
 import { FormStepSecond } from "../components/form-steps/step-2/FormStepSecond";
@@ -7,7 +8,7 @@ import { FormStepFourth } from "../components/form-steps/step-4/FormStepFourth";
 
 export interface StepConfig {
   id: number;
-  component: FC<any>; // Props bo‘lsa aniq type yozing
+  component: React.FC;
   title: string;
   description: string;
 }
