@@ -24,13 +24,13 @@ export const FormStepSecond = () => {
   return (
     <div className="step_second">
       <h2 className={`step_second_title ${animateTitle ? "open" : "close"}`}>
-        Asos turi
+        Type
       </h2>
       <div className={`switch_container ${animateTitle ? "open" : "close"}`}>
         <div className="switch_container_item">
           <div className="switch_container_item_left">
-            <p>Oddiy MDF eshik</p>
-            <span>Ushbu amal sotuv bo’limi uchun</span>
+            <p>Type 1</p>
+            <span>Description 1</span>
           </div>
           <Item name="mdf1" valuePropName="checked">
             <Switch defaultChecked />
@@ -38,8 +38,8 @@ export const FormStepSecond = () => {
         </div>
         <div className="switch_container_item">
           <div className="switch_container_item_left">
-            <p>Shishali MDF eshik</p>
-            <span>Ushbu amal sotuv bo’limi uchun</span>
+            <p>Type 2</p>
+            <span>Description 2</span>
           </div>
           <Item name="mdf2" valuePropName="checked">
             <Switch defaultChecked />

@@ -25,13 +25,13 @@ export const FormStepOne = () => {
   return (
     <div>
       <h1 className={`form_title ${animateTitle ? "open" : "close"}`}>
-        Asosiy ma’lumotlar
+        Step 1
       </h1>
       <TextInput
-        title="Nomi"
+        title="Name"
         required={false}
         name="name"
-        placeholder="Nomni kiriting"
+        placeholder="Name"
         classNameTextInput={`${animateTitle ? "open" : "close"}`}
       />
       <div
@@ -39,17 +39,17 @@ export const FormStepOne = () => {
       >
         <div className="form_line"></div>
 
-        <h2 className="standard_size">Standart o’lcham</h2>
+        <h2 className="standard_size">Size</h2>
 
         <Row gutter={12}>
           <InputNumberComponent
-            title="Mahsulot bo’yi"
+            title="Height"
             name="height"
             suffix="mm"
             type="number"
           />
           <InputNumberComponent
-            title="Mahsulot eni"
+            title="Width"
             name="width"
             suffix="mm"
             type="number"

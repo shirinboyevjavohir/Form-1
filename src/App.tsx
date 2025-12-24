@@ -20,7 +20,7 @@ const App: React.FC = () => {
         onClick={showLoading}
         icon={<PlusOutlined />}
       >
-        Asos yaratish
+        Click
       </Button>
       <BasicInformation />
     </>

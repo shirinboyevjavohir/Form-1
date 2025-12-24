@@ -1,27 +1,15 @@
+import type { ReactNode } from "react";
 import { Step } from "../step/Step";
 import "./steps.css";
 
-const data = [
-  {
-    title: "Asosiy ma’lumot",
-    description: "Mahsulotning tashkil etuvchi ma’lumotlarini kiritish",
-  },
-  {
-    title: "Asos turi",
-    description: "Asosni bir necha turda yaratish",
-  },
-  {
-    title: "Jarayonlarni boshqarish",
-    description:
-      "Nalichnik asosiga biriktiriladigan jarayonlarni boshqarish sarflanadigan xomashyolarni biriktirish",
-  },
-  {
-    title: "Mahsulot asosini narxlash",
-    description: "Karobkaning standart o’lchami uchun narx kiritish",
-  },
-];
+type Props = {
+  id: number;
+  title: string;
+  description: string;
+  component: ReactNode;
+};
 
-export const Steps = () => {
+export const Steps = ({ data }: { data: Props[] }) => {
   const dataLength = data.length - 1;
   return (
     <div>

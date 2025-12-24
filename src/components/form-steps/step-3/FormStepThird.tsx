@@ -30,7 +30,7 @@ export const FormStepThird = () => {
   return (
     <div className="step_third">
       <h2 className={`step_third_title ${animateTitle ? "open" : "close"}`}>
-        Jarayonlar va xomashyolar sarfi
+        Select
       </h2>
       <Item name="consumption">
         <Select

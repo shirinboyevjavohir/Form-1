@@ -20,69 +20,75 @@ export const BasicInformation = () => {
   );
   const dispatch = useDispatch();
   const [formInstance] = useForm();
-  // const [activeStep, setActiveStep] = useState(1);
   const [okText, setOkText] = useState("Keyingi");
 
   const components = [
     {
       id: 1,
       component: <FormStepOne />,
+      title: "Step 1",
+      description: "Step description 1",
     },
     {
       id: 2,
       component: <FormStepSecond />,
+      title: "Step 2",
+      description: "Step description 2",
     },
     {
       id: 3,
       component: <FormStepThird />,
+      title: "Step 3",
+      description: "Step description 3",
     },
     {
       id: 4,
       component: <FormStepFourth />,
+      title: "Step 4",
+      description: "Step description 4",
     },
   ];
 
   const onOk = () => {
     if (components.length !== activeStep) {
       dispatch(setActiveStep(activeStep + 1));
-      setOkText(components.length - 1 === activeStep ? "Saqlash" : "Keyingi");
+      setOkText(components.length - 1 === activeStep ? "Save" : "Next");
     } else {
       dispatch(setActiveStep(components.length));
     }
-    const values = formInstance.getFieldsValue(true);
-    console.log('All fields:', values);
-    // if (activeStep === 2) {
-    //   formInstance.submit();
-    // }
+
+    if (activeStep === components.length) {
+      formInstance.submit();
+    }
   };
 
-  const onFinish = (fields: unknown) => {
-    console.log(fields, "test");
-    // formInstance.resetFields();
+  const onFinish = () => {
+    const values = formInstance.getFieldsValue(true);
+    console.log("All fields:", values);
   };
 
   const onCancel = () => {
     dispatch(setMainModal(false));
     formInstance.resetFields();
     dispatch(setActiveStep(1));
-    setOkText("Keyingi");
+    setOkText("Next");
   };
 
   return (
     <Modal
       forceRender
       className="modal"
-      title={<p>Eshik asosini yaratish</p>}
+      title={<p>Form</p>}
       open={visible}
       onCancel={onCancel}
       width={1147}
       onOk={onOk}
-      cancelText="Yopish"
+      cancelText="Close"
       okText={okText}
     >
       <div className="container">
         <div className="step">
-          <Steps />
+          <Steps data={components} />
         </div>
 
         <div className="form">

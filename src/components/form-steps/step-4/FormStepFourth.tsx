@@ -22,11 +22,11 @@ export const FormStepFourth = () => {
   return (
     <div className="step_fourth">
       <h2 className={`step_fourth_title ${animateTitle ? "open" : "close"}`}>
-        Sotuv birligi va narxlash
+        Percent
       </h2>
       <div className={`step_fourth_input ${animateTitle ? "open" : "close"}`}>
         <InputNumberComponent
-          title="Umumiy ustama"
+          title="Percent"
           name="totalPremium"
           suffix="%"
           type="number"

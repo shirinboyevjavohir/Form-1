@@ -15,7 +15,7 @@ export const PaintSelection = () => {
 
   return (
     <div>
-      <h2 className="standard_size">Bo‘yoq</h2>
+      <h2 className="standard_size">Color</h2>
       <div className="color_container">
         <Item name="color">
           <Row gutter={12}>
@@ -24,7 +24,7 @@ export const PaintSelection = () => {
                 className={`color_item ${color === "painted" ? "active" : ""}`}
                 onClick={() => handleColorClick("painted")}
               >
-                <p className="color_item_title">Bo‘yoqli</p>
+                <p className="color_item_title">Painted</p>
                 <div className="radio_container">
                   {color === "painted" && <FaCheck className="check_icon" />}
                 </div>
@@ -37,7 +37,7 @@ export const PaintSelection = () => {
                 }`}
                 onClick={() => handleColorClick("not_painted")}
               >
-                <p className="color_item_title">Bo‘yoqsiz</p>
+                <p className="color_item_title">Not painted</p>
                 <div className="radio_container">
                   {color === "not_painted" && (
                     <FaCheck className="check_icon" />
