@@ -1,5 +1,9 @@
 import { Row, Col, Form, Input } from "antd";
 import "./textInput.css";
+import { useEffect, useRef } from "react";
+import type { InputRef } from "antd";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../store/store";
 
 type Props = {
   title: string;
@@ -16,6 +20,17 @@ export const TextInput = ({
   placeholder,
   classNameTextInput,
 }: Props) => {
+  const inputRef = useRef<InputRef>(null);
+  const visible = useSelector((state: RootState) => state.mainModal.visible);
+
+  useEffect(() => {
+    if (visible) {
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 100);
+    }
+  }, [visible]);
+
   return (
     <Row>
       <Col span={24}>
@@ -26,7 +41,7 @@ export const TextInput = ({
           rules={[{ required: true, message: "" }]}
           className={`input ${classNameTextInput}`}
         >
-          <Input placeholder={placeholder} />
+          <Input ref={inputRef} placeholder={placeholder} />
         </Form.Item>
       </Col>
     </Row>

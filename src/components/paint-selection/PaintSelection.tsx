@@ -1,21 +1,18 @@
-import { useState } from "react";
 import { Row, Col, Form } from "antd";
-import { useForm } from "antd/es/form/Form";
 import { FaCheck } from "react-icons/fa";
 import "./paintSelection.css";
 
 const Item = Form.Item;
 
 export const PaintSelection = () => {
-  const [formInstance] = useForm();
-  const [color, setColor] = useState(
-    formInstance.getFieldValue("color") || "painted"
-  );
+  // use parent form instance so the `color` field is set on the main form
+  const form = Form.useFormInstance();
+  const color = Form.useWatch("color", form) || "painted";
 
   const handleColorClick = (value: string) => {
-    setColor(value);
-    formInstance.setFieldsValue({ color: value });
+    form.setFieldsValue({ color: value });
   };
+
   return (
     <div>
       <h2 className="standard_size">Bo‘yoq</h2>

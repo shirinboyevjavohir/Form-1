@@ -9,8 +9,15 @@ type Props = {
   name: string;
   suffix: string;
   type: string;
+  widthInput?: number;
 };
-export const InputNumberComponent = ({ title, name, suffix, type }: Props) => {
+export const InputNumberComponent = ({
+  title,
+  name,
+  suffix,
+  type,
+  widthInput,
+}: Props) => {
   return (
     <Col span={12}>
       <Item
@@ -27,7 +34,7 @@ export const InputNumberComponent = ({ title, name, suffix, type }: Props) => {
       >
         <InputNumber
           controls={false}
-          style={{ width: "100%" }}
+          style={{ width: widthInput ? `${widthInput}px` : "100%" }}
           min={0}
           type={type}
           suffix={<span className="suffix">{suffix}</span>}

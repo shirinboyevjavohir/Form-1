@@ -49,12 +49,15 @@ export const BasicInformation = () => {
     } else {
       dispatch(setActiveStep(components.length));
     }
-
-    // formInstance.submit();
+    const values = formInstance.getFieldsValue(true);
+    console.log('All fields:', values);
+    // if (activeStep === 2) {
+    //   formInstance.submit();
+    // }
   };
 
   const onFinish = (fields: unknown) => {
-    console.log(fields);
+    console.log(fields, "test");
     // formInstance.resetFields();
   };
 
@@ -87,7 +90,7 @@ export const BasicInformation = () => {
             form={formInstance}
             layout="vertical"
             onFinish={onFinish}
-            initialValues={{ color: "painted" }}
+            initialValues={{ color: "painted", mdf1: true, mdf2: false }}
           >
             {components.find((item) => item.id === activeStep)?.component}
           </Form>
