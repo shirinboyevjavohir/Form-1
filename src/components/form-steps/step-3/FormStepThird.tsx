@@ -32,7 +32,7 @@ export const FormStepThird = () => {
       <h2 className={`step_third_title ${animateTitle ? "open" : "close"}`}>
         Select
       </h2>
-      <Item name="consumption">
+      <Item name="consumption" rules={[{ required: true, message: "" }]}>
         <Select
           className={`step_third_select ${animateTitle ? "open" : "close"}`}
           showSearch={{

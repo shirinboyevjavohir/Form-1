@@ -1,6 +1,6 @@
 import { useForm } from "antd/es/form/Form";
-import { Form, Modal } from "antd";
-import { useState } from "react";
+import { Form, Modal, message } from "antd";
+import { useMemo } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
@@ -8,10 +8,14 @@ import { setMainModal } from "../../slices/slices";
 import { setActiveStep } from "../../slices/slices";
 import "./basicInformation.css";
 import { Steps } from "../steps/Steps";
-import { FormStepOne } from "../form-steps/step-1/FormStepOne";
-import { FormStepSecond } from "../form-steps/step-2/FormStepSecond";
-import { FormStepThird } from "../form-steps/step-3/FormStepThird";
-import { FormStepFourth } from "../form-steps/step-4/FormStepFourth";
+import { components } from "../../data/formSteps.ts";
+
+const stepFields: Record<number, string[]> = {
+  1: ["name", "height", "width", "color"],
+  2: ["mdf1", "mdf2"],
+  3: ["consumption"],
+  4: ["totalPremium"],
+};
 
 export const BasicInformation = () => {
   const visible = useSelector((state: RootState) => state.mainModal.visible);
@@ -20,63 +24,76 @@ export const BasicInformation = () => {
   );
   const dispatch = useDispatch();
   const [formInstance] = useForm();
-  const [okText, setOkText] = useState("Keyingi");
+  const isLastStep = activeStep === components.length;
 
-  const components = [
-    {
-      id: 1,
-      component: <FormStepOne />,
-      title: "Step 1",
-      description: "Step description 1",
-    },
-    {
-      id: 2,
-      component: <FormStepSecond />,
-      title: "Step 2",
-      description: "Step description 2",
-    },
-    {
-      id: 3,
-      component: <FormStepThird />,
-      title: "Step 3",
-      description: "Step description 3",
-    },
-    {
-      id: 4,
-      component: <FormStepFourth />,
-      title: "Step 4",
-      description: "Step description 4",
-    },
-  ];
+  const okText = useMemo(() => {
+    if (components.length === activeStep) return "Save";
+    return "Next";
+  }, [activeStep]);
 
-  const onOk = () => {
-    if (components.length !== activeStep) {
-      dispatch(setActiveStep(activeStep + 1));
-      setOkText(components.length - 1 === activeStep ? "Save" : "Next");
-    } else {
-      dispatch(setActiveStep(components.length));
+  const activeComponent = useMemo(() => {
+    const Comp = components.find((item) => item.id === activeStep)?.component;
+    return Comp ? <Comp /> : null;
+  }, [activeStep]);
+
+  const onCancel = () => {
+    if (activeStep === 1) {
+      const name = formInstance.getFieldValue("name");
+      const height = formInstance.getFieldValue("height");
+      const width = formInstance.getFieldValue("width");
+
+      if (name || height || width) {
+        confirmModal();
+      } else {
+        resetModal();
+      }
+      return;
     }
 
-    if (activeStep === components.length) {
+    confirmModal();
+  };
+
+  const confirmModal = () => {
+    Modal.confirm({
+      title: "Are you sure?",
+      content: "Unsaved changes will be lost",
+      okText: "Yes",
+      cancelText: "No",
+      wrapClassName: "confirm-modal",
+      onOk: () => {
+        resetModal();
+      },
+    });
+  };
+
+  const resetModal = () => {
+    dispatch(setMainModal(false));
+    formInstance.resetFields();
+    dispatch(setActiveStep(1));
+  };
+
+  const onOk = async () => {
+    try {
+      await formInstance.validateFields(stepFields[activeStep] || []);
+
+      if (!isLastStep) {
+        dispatch(setActiveStep(activeStep + 1));
+        return;
+      }
+
       formInstance.submit();
-    }
+    } catch {}
   };
 
   const onFinish = () => {
     const values = formInstance.getFieldsValue(true);
-    console.log("All fields:", values);
-  };
-
-  const onCancel = () => {
-    dispatch(setMainModal(false));
-    formInstance.resetFields();
-    dispatch(setActiveStep(1));
-    setOkText("Next");
+    console.log(values);
+    message.success("Successfully Submitted!");
+    resetModal();
   };
 
   return (
     <Modal
-      forceRender
       className="modal"
       title={<p>Form</p>}
       open={visible}
@@ -88,7 +105,13 @@ export const BasicInformation = () => {
     >
       <div className="container">
         <div className="step">
-          <Steps data={components} />
+          <Steps
+            data={components.map(({ id, title, description }) => ({
+              id,
+              title,
+              description,
+            }))}
+          />
         </div>
 
         <div className="form">
@@ -98,7 +121,7 @@ export const BasicInformation = () => {
             onFinish={onFinish}
             initialValues={{ color: "painted", mdf1: true, mdf2: false }}
           >
-            {components.find((item) => item.id === activeStep)?.component}
+            {activeComponent}
           </Form>
         </div>
       </div>

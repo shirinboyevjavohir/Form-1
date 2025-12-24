@@ -1,4 +1,3 @@
-import type { ReactNode } from "react";
 import { Step } from "../step/Step";
 import "./steps.css";
 
@@ -6,7 +5,6 @@ type Props = {
   id: number;
   title: string;
   description: string;
-  component: ReactNode;
 };
 
 export const Steps = ({ data }: { data: Props[] }) => {

@@ -12,4 +12,9 @@
 .form {
   width: 857px;
   padding: 16px;
+  min-height: 500px !important;
+}
+
+.confirm-modal .ant-modal-container {
+  padding: 20px !important;
 }
